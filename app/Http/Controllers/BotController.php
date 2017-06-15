@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use CodeBot\CallSendApi;
+use CodeBot\Message\Audio;
 use CodeBot\Message\Text;
 use CodeBot\Message\Image;
 use CodeBot\SenderRequest;
@@ -35,6 +36,9 @@ class BotController extends Controller
 
         $message = new Image($senderId);
         $callSendApi->make($message->message('http://fathomless-castle-56481.herokuapp.com/img/homer.gif'));
+
+        $message = new Audio($senderId);
+        $callSendApi->make($message->message('http://fathomless-castle-56481.herokuapp.com/audio/woohoo.wav'));
 
         return '';
     }
