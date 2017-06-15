@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use CodeBot\CallSendApi;
 use CodeBot\Message\Text;
+use CodeBot\Message\Image;
 use CodeBot\SenderRequest;
 use CodeBot\WebHook;
 use Illuminate\Http\Request;
@@ -30,7 +31,10 @@ class BotController extends Controller
         $callSendApi = new CallSendApi(config('botfb.pageAccessToken'));
 
         $callSendApi->make($text->message('Oiii, eu sou um bot'));
-        $callSendApi->make($text->message('Voce digitou'.$message));
+        $callSendApi->make($text->message('Voce digitou: '.$message));
+
+        $message = new Image($senderId);
+        $callSendApi->make($message->message('http://fathomless-castle-56481.herokuapp.com/img/homer.gif'));
 
         return '';
     }
