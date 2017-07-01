@@ -59,7 +59,7 @@ class BotController extends Controller
         $callSendApi->make($message->message('Que tal testarmos a abertura de um site?'));
 
         $button = new Button('web_url', null, 'https://angular.io/');
-        $product = new Product('Produto 1','https://www.w3schools.com/angular/pic_angular.jpg','Curso de Angular', $button);
+        $product = new Product('Produto 1','https://cms-assets.tutsplus.com/uploads/users/34/posts/23535/preview_image/angular-js-firebase.png','Curso de Angular', $button);
         $button = new Button('web_url', null, 'http://php.net/');
         $product2 = new Product('Produto 2','https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/711px-PHP-logo.svg.png','Curso de PHP', $button);
 
@@ -69,7 +69,7 @@ class BotController extends Controller
         $callSendApi->make($template->message('qwe'));
 
         $button = new Button('web_url', null, 'https://angular.io/');
-        $product = new Product('Produto 1','https://www.w3schools.com/angular/pic_angular.jpg','Curso de Angular', $button);
+        $product = new Product('Produto 1','https://cms-assets.tutsplus.com/uploads/users/34/posts/23535/preview_image/angular-js-firebase.png','Curso de Angular', $button);
         $button = new Button('web_url', null, 'http://php.net/');
         $product2 = new Product('Produto 2','https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/711px-PHP-logo.svg.png','Curso de PHP', $button);
 
