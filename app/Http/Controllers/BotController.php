@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use CodeBot\Build\Solid;
 use CodeBot\CallSendApi;
 use CodeBot\Element\Button;
 use CodeBot\Element\Product;
@@ -34,49 +35,48 @@ class BotController extends Controller
         $sender = new SenderRequest;
         $senderId = $sender->getSenderId();
         $message = $sender->getMessage();
+        $postback = $sender->getPostback();
 
-        $text = new Text($senderId);
-        $callSendApi = new CallSendApi(config('botfb.pageAccessToken'));
+        $bot = Solid::factory();
+        Solid::pageAccessToken(config('botfb.pageAccessToken'));
+        Solid::setSender($senderId);
 
-        $callSendApi->make($text->message('Oiii, eu sou um bot'));
-        $callSendApi->make($text->message('Voce digitou: '.$message));
+        if ($postback) {
+            $bot->message('text', 'Você chamou o postback '.$postback);
+            return '';
+        }
 
-        $message = new Image($senderId);
-        $callSendApi->make($message->message('http://fathomless-castle-56481.herokuapp.com/img/homer.gif'));
+        $bot->message('text', 'Oiii, eu sou um bot');
+        $bot->message('text', 'Voce digitou: ' . $message);
 
-        $message = new Audio($senderId);
-        $callSendApi->make($message->message('http://fathomless-castle-56481.herokuapp.com/audio/woohoo.wav'));
+        $bot->message('image', 'http://fathomless-castle-56481.herokuapp.com/img/homer.gif');
+        $bot->message('audio', 'http://fathomless-castle-56481.herokuapp.com/audio/woohoo.wav');
+        $bot->message('file', 'http://fathomless-castle-56481.herokuapp.com/file/file.zip');
+        $bot->message('video', 'http://fathomless-castle-56481.herokuapp.com/video/video.mp4');
 
-        $message = new File($senderId);
-        $callSendApi->make($message->message('http://fathomless-castle-56481.herokuapp.com/file/file.zip'));
+        $buttons = [
+            new Button('web_url','Code.Education','http://code.education'),
+            new Button('web_url','Google','https://www.google.com.br')
+        ];
+        $bot->template('buttons', 'Que tal testarmos a abertura de um site?', $buttons);
 
-        $message = new Video($senderId);
-        $callSendApi->make($message->message('http://fathomless-castle-56481.herokuapp.com/video/video.mp4'));
+        $products = [
+            new Product(
+                'Produto 1',
+                'https://cms-assets.tutsplus.com/uploads/users/34/posts/23535/preview_image/angular-js-firebase.png',
+                'Curso de Angular',
+                 new Button('web_url', null, 'https://angular.io/')
+            ),
+            new Product(
+                'Produto 2',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/711px-PHP-logo.svg.png',
+                'Curso de PHP',
+                 new Button('web_url', null, 'http://php.net/')
+            )
+        ];
 
-        $message = new ButtonsTemplate($senderId);
-        $message->add(new Button('web_url','Code.Education','http://code.education'));
-        $message->add(new Button('web_url','Google','https://www.google.com.br'));
-        $callSendApi->make($message->message('Que tal testarmos a abertura de um site?'));
-
-        $button = new Button('web_url', null, 'https://angular.io/');
-        $product = new Product('Produto 1','https://cms-assets.tutsplus.com/uploads/users/34/posts/23535/preview_image/angular-js-firebase.png','Curso de Angular', $button);
-        $button = new Button('web_url', null, 'http://php.net/');
-        $product2 = new Product('Produto 2','https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/711px-PHP-logo.svg.png','Curso de PHP', $button);
-
-        $template = new GenericTemplate($senderId);
-        $template->add($product);
-        $template->add($product2);
-        $callSendApi->make($template->message('qwe'));
-
-        $button = new Button('web_url', null, 'https://angular.io/');
-        $product = new Product('Produto 1','https://cms-assets.tutsplus.com/uploads/users/34/posts/23535/preview_image/angular-js-firebase.png','Curso de Angular', $button);
-        $button = new Button('web_url', null, 'http://php.net/');
-        $product2 = new Product('Produto 2','https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/711px-PHP-logo.svg.png','Curso de PHP', $button);
-
-        $template = new ListTemplate($senderId);
-        $template->add($product);
-        $template->add($product2);
-        $callSendApi->make($template->message('qwe'));
+        $bot->template('generic', '', $products);
+        $bot->template('list', '', $products);
 
         return '';
     }
