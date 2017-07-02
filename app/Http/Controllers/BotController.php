@@ -42,6 +42,9 @@ class BotController extends Controller
         Solid::setSender($senderId);
 
         if ($postback) {
+            if (is_array($postback)) {
+                $postback = json_encode($postback);
+            }
             $bot->message('text', 'Você chamou o postback '.$postback);
             return '';
         }
