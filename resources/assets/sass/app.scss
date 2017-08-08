@@ -1,9 +1,11 @@
+@import url(https://fonts.googleapis.com/css?family=Material+Icons);
+@import "node_modules/materialize-css/sass/materialize";
+@import "node_modules/sweetalert/dev/sweetalert.scss";
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
-// Variables
-@import "variables";
-
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+#main-nav {
+  a:hover, a:focus {
+    color: #fff;
+    text-decoration: none;
+  }
+}

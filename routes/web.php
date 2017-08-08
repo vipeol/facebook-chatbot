@@ -12,10 +12,6 @@
 */
 
 Route::get('/', function () {
-
-    $text = (new CodeBot\Message\Text(1))->message('Oiii');
-    dd($text);
-
     return view('welcome');
 });
 
@@ -24,3 +20,22 @@ Route::prefix('bot')
         Route::get('/webhook','BotController@subscribe');
         Route::post('/webhook','BotController@receiveMessage');
     });
+
+Route::prefix('api/v1')
+    ->middleware('auth')
+    ->namespace('Api\V1')
+    ->group(function () {
+        Route::post('/postbacks/get-started-button/{id}', 'PostBacksController@setGetStartedButton');
+        Route::delete('/postbacks/get-started-button', 'PostBacksController@removeGetStartedButton');
+        Route::resource('/postbacks', 'PostBacksController');
+        Route::resource('/messages', 'MessagesController');
+    });
+
+Route::prefix('api/v1')
+    ->namespace('Api\V1')
+    ->group(function () {
+        Route::get('/users/me', 'UsersController@me');
+    });
+
+
+Auth::routes();

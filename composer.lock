@@ -2068,16 +2068,16 @@
         },
         {
             "name": "vipeol/facebook-chatbot-sdk",
-            "version": "v1.3.0",
+            "version": "v1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vipeol/facebook-chatbot-sdk.git",
-                "reference": "c43090b99a1caac6964ea6345a3d2bb7daf668af"
+                "reference": "c0cd20baa8fb3b9bf2d862f9d42072a1a4cfe359"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vipeol/facebook-chatbot-sdk/zipball/c43090b99a1caac6964ea6345a3d2bb7daf668af",
-                "reference": "c43090b99a1caac6964ea6345a3d2bb7daf668af",
+                "url": "https://api.github.com/repos/vipeol/facebook-chatbot-sdk/zipball/c0cd20baa8fb3b9bf2d862f9d42072a1a4cfe359",
+                "reference": "c0cd20baa8fb3b9bf2d862f9d42072a1a4cfe359",
                 "shasum": ""
             },
             "require": {
@@ -2103,7 +2103,7 @@
                     "email": "vinicius.pedrosa@gmail.com"
                 }
             ],
-            "time": "2017-07-02T15:15:13+00:00"
+            "time": "2017-07-02T16:32:59+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
