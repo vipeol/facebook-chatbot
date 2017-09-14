@@ -20,6 +20,9 @@
                 <a :href="message.message"><i class="material-icons">attach_file</i>Arquivo para download</a>
             </blockquote>
 
+            <buttons v-if="message.type === 'buttons'" :message-data="message"></buttons>
+            <generic v-if="message.type === 'generic'" :message-data="message"></generic>
+
             <form @submit.prevent="update(currentMessage)" v-if="showEditForm">
                 <div class="input-field">
                     <input type="text" class="form-control" placeholder="Mensagem ou url..." v-model="currentMessage" required>
@@ -38,10 +41,17 @@
 </template>
 
 <script>
+    import Buttons from './Templates/Buttons'
+    import Generic from './Templates/Generic'
+
     export default {
         props: [
             'messageData'
         ],
+        components : {
+            buttons : Buttons,
+            generic : Generic
+        },
         data: function () {
             return {
                 currentMessage: null,
